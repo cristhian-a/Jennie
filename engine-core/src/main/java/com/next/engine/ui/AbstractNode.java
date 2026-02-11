@@ -85,8 +85,6 @@ public abstract class AbstractNode {
         drawBackground(queue);
     }
 
-//    public abstract void draw(RenderQueue queue);
-
     protected void drawBackground(RenderQueue queue) {
         if (computedStyle == null) return;
 

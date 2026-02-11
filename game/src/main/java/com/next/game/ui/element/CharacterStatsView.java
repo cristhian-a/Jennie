@@ -64,7 +64,7 @@ public final class CharacterStatsView {
                 "backgroundColor", Colors.BLACK,
                 "borderColor", Colors.WHITE,
                 "borderWidth", 4f,
-                "cornerRadius", 0f
+                "cornerRadius", 5f
         ));
         styleSheet.addRule(".Button", Map.of(
                 "marginLeft", 25f,
