@@ -34,7 +34,7 @@ public final class StyleEngine {
     private boolean ruleMatches(Selector s, AbstractNode node) {
         if (s.type() != null && !s.type().equals(node.getTypeName())) return false;
         if (s.id() != null && !s.id().equals(node.style().getId())) return false;
-        if (s.state() != null && !node.hasState(s.state())) return false;
+        if (s.state() != null && !node.style().hasState(s.state())) return false;
         for (int i = 0; i < s.classes().size(); i++) if (!node.style().hasStyleClass(s.classes())) return false;
         return true;
     }

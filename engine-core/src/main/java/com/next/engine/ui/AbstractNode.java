@@ -24,10 +24,6 @@ public abstract class AbstractNode {
         return null;
     }
 
-    public boolean hasState(String state) {
-        return false;
-    }
-
     public String getTypeName() {
         return this.getClass().getSimpleName();
     }

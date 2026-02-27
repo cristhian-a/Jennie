@@ -7,6 +7,7 @@ import com.next.engine.graphics.RenderQueue;
 import com.next.engine.graphics.TextFont;
 import com.next.engine.ui.AbstractNode;
 import com.next.engine.ui.Focusable;
+import com.next.engine.ui.UIState;
 import com.next.engine.ui.component.Action;
 import com.next.engine.ui.component.ActionComponent;
 import com.next.engine.ui.component.FocusStyleComponent;
@@ -85,12 +86,14 @@ public final class Button extends AbstractNode implements Focusable {
 
     @Override
     public void onFocus() {
+        style().setState(UIState.FOCUSED, true);
         focused = true;
         markDirty();
     }
 
     @Override
     public void onBlur() {
+        style().setState(UIState.FOCUSED, false);
         focused = false;
         markDirty();
     }
@@ -99,10 +102,5 @@ public final class Button extends AbstractNode implements Focusable {
     public void onActivate(String input) {
         var action = getComponent(ActionComponent.class);
         if (action != null) action.fire(input);
-    }
-
-    @Override
-    public boolean hasState(String state) {
-        return state.equals("focused") && isFocused();
     }
 }

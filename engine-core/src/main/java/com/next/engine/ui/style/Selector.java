@@ -1,10 +1,12 @@
 package com.next.engine.ui.style;
 
+import com.next.engine.ui.UIState;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-record Selector(String type, String id, Set<String> classes, String state) {
+record Selector(String type, String id, Set<String> classes, UIState state) {
 
     Selector {
         classes = classes == null
@@ -24,7 +26,7 @@ record Selector(String type, String id, Set<String> classes, String state) {
             else if (p.startsWith(":")) state = p.substring(1);
             else if (!p.isEmpty()) type = p;
         }
-        return new Selector(type, id, classes, state);
+        return new Selector(type, id, classes, UIState.parse(state));
     }
 
     int specificity() {

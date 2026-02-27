@@ -1,12 +1,10 @@
 package com.next.engine.ui.style;
 
 import com.next.engine.ui.AbstractNode;
+import com.next.engine.ui.UIState;
 import lombok.Getter;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 public final class Style {
     private final AbstractNode owner;
@@ -65,6 +63,27 @@ public final class Style {
 
     public boolean hasStyleClass(Collection<String> classes) {
         return !Collections.disjoint(styleClasses, classes);
+    }
+
+    private final EnumSet<UIState> states = EnumSet.noneOf(UIState.class);
+
+    public boolean hasState(UIState state) {
+        return states.contains(state);
+    }
+
+    public void addState(UIState state) {
+        states.add(state);
+        markDirty();
+    }
+
+    public void removeState(UIState state) {
+        states.remove(state);
+        markDirty();
+    }
+
+    public void setState(UIState state, boolean value) {
+        if (value) addState(state);
+        else removeState(state);
     }
 
 }
