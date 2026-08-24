@@ -87,10 +87,10 @@ public final class Renderer {
 
         var bucket = queue.getBucket(layer);
 
-        uiRenderer.renderRectangleTable(g, bucket.rectangles);
         uiRenderer.renderFilledRectangleTable(g, bucket.filledRectangles);
         uiRenderer.renderFilledRoundRectangleTable(g, bucket.filledRoundRects);
         uiRenderer.renderRoundedStrokeRectTable(g, bucket.roundedStrokeRectTable);
+        uiRenderer.renderRectangleTable(g, bucket.rectangles);
         renderSpriteTable(g, camera, bucket.sprites);
         renderOverlayTable(g, bucket.overlays);
         uiRenderer.renderTextTable(g, bucket.texts);

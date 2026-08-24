@@ -30,7 +30,7 @@ Since this is a Maven project, you can get it up and running with:
 ```bash
 mvn clean install
 cd game
-mvn exec:java -Dexec.mainClass="com.next.game.Main"
+mvn exec:exec
 ```
 
 ### 🌸 Why "Jennie"?

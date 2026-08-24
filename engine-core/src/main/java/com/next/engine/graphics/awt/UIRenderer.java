@@ -10,6 +10,8 @@ import java.util.List;
 
 final class UIRenderer {
 
+    private final Stroke defaultStroke = new BasicStroke(1);
+
     private final VideoSettings settings;
     private final List<UIMessage> messages;
 
@@ -35,9 +37,9 @@ final class UIRenderer {
         renderText(g, m.text, m.x, m.y, RenderCache.INSTANCE.getColor(m.color), Registry.fonts.get(m.font), m.position);
     }
 
-    void renderText(Graphics2D g, String text, int x, int y, Color color, Font font, RenderPosition position) {
+    void renderText(Graphics2D g, String text, int x, int y, Color color, TextFont font, RenderPosition position) {
         g.setColor(color);
-        g.setFont(font);
+        g.setFont(((AwtFont) font).raw());
 
         if (position == RenderPosition.CENTERED) {
             FontMetrics fm = g.getFontMetrics();
@@ -62,6 +64,7 @@ final class UIRenderer {
     }
 
     void renderRectangleTable(Graphics2D g, RenderQueue.RectangleTable table) {
+        g.setStroke(defaultStroke);
         for (int i = 0; i < table.count; i++) {
             g.setColor(RenderCache.INSTANCE.getColor(table.colors[i]));
             g.drawRect((int) table.x[i], (int) table.y[i], (int) table.width[i], (int) table.height[i]);

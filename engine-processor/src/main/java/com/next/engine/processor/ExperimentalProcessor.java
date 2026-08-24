@@ -9,6 +9,7 @@ import com.sun.source.util.Trees;
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 import java.lang.reflect.Method;
@@ -24,6 +25,11 @@ public class ExperimentalProcessor extends AbstractProcessor {
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         for (Element root : roundEnv.getRootElements()) {
             TreePath path = trees.getPath(root);
+
+            if (root.getKind() == ElementKind.RECORD) {
+                continue;
+            }
+
             new TreePathScanner<Void, Void>() {
                 @Override
                 public Void visitIdentifier(IdentifierTree node, Void unused) {

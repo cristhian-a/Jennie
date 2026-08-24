@@ -25,6 +25,7 @@ public final class ManagedTexture2 {
         this.ramSource = ramSource;
     }
 
+    /// Called in tile drawing.
     void draw(Graphics2D g, int dx, int dy, int dx2, int dy2, int sx, int sy, int sx2, int sy2) {
         GraphicsConfiguration config = g.getDeviceConfiguration();
 
@@ -66,10 +67,12 @@ public final class ManagedTexture2 {
 
                 int dx = (int) (table.x[i] - s.pivotX());
                 int dy = (int) (table.y[i] - s.pivotY());
+                int dw = (int) (table.width[i]);
+                int dh = (int) (table.height[i]);
 
                 g.drawImage(
                         vRamHandle,
-                        dx, dy, dx + s.srcWidth(), dy + s.srcHeight(),
+                        dx, dy, dx + dw, dy + dh,
                         s.srcX(), s.srcY(), s.srcX2(), s.srcY2(),
                         null
                 );

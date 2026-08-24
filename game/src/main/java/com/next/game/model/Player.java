@@ -25,7 +25,7 @@ import com.next.game.util.Inputs;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Player extends Actor implements Combatant {
+public final class Player extends Actor implements Combatant {
 
     private final Dresser<AnimationState> costume;
 

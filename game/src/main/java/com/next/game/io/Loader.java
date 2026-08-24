@@ -2,6 +2,7 @@ package com.next.game.io;
 
 import com.next.engine.data.Registry;
 import com.next.engine.dto.TextureMetadata;
+import com.next.engine.graphics.awt.AwtFont;
 import com.next.engine.io.FileReader;
 import com.next.engine.io.JsonReader;
 import com.next.engine.scene.Tile;
@@ -58,9 +59,9 @@ public final class Loader {
         public static void register() {
             try (InputStream is = load()) {
                 var f = Font.createFont(Font.TRUETYPE_FONT, is);
-                Registry.fonts.put(Fonts.DEBUG, f.deriveFont(Font.PLAIN, 32f));
-                Registry.fonts.put(Fonts.DEFAULT, f.deriveFont(Font.PLAIN, 32f));
-                Registry.fonts.put(Fonts.DEFAULT_80_BOLD, f.deriveFont(Font.BOLD, 80f));
+                Registry.fonts.put(Fonts.DEBUG, new AwtFont(f.deriveFont(Font.PLAIN, 32f)));
+                Registry.fonts.put(Fonts.DEFAULT, new AwtFont(f.deriveFont(Font.PLAIN, 32f)));
+                Registry.fonts.put(Fonts.DEFAULT_80_BOLD, new AwtFont(f.deriveFont(Font.BOLD, 80f)));
             } catch (IOException | FontFormatException e) {
                 throw new RuntimeException(e);
             }

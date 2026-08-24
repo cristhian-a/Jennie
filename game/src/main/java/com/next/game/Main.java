@@ -1,21 +1,6 @@
 package com.next.game;
 
-import com.next.engine.Conductor;
-import com.next.engine.Director;
-import com.next.engine.data.Mailbox;
-import com.next.engine.data.Registry;
-import com.next.engine.debug.*;
-import com.next.engine.event.EventDispatcher;
-import com.next.engine.event.ExitEvent;
-import com.next.engine.event.GracefullyStopEvent;
-import com.next.engine.event.WorldTransitionEvent;
-import com.next.engine.graphics.GamePanel;
-import com.next.engine.graphics.awt.AwtCanvas;
-import com.next.engine.graphics.awt.Renderer;
-import com.next.engine.io.AwtInputListener;
-import com.next.engine.sound.*;
-import com.next.engine.sound.jxsound.JavaSoundBackend;
-import com.next.engine.system.*;
+import module engine.core;
 import com.next.game.io.Loader;
 import com.next.game.util.Inputs;
 

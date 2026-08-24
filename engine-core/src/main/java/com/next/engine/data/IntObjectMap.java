@@ -6,11 +6,11 @@ import java.util.Arrays;
 
 /**
  * {@link Experimental} <br/>
- * Primitive int to object map that uses open addressing and is better suited for lookups than {@link SmallIntObjectMap},
+ * Primitive int to an object map that uses open addressing and is better suited for lookups than {@link SmallIntObjectMap},
  * although it performs worse when dealing with a tiny number of entries (less than 8~16).
  */
 @Experimental
-public class IntObjectMap {
+public final class IntObjectMap {
 
     private static final int EMPTY = 0x80000000;
 

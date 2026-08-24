@@ -10,4 +10,6 @@ module game {
     opens sounds;
     opens sprites;
     opens textures;
+
+    opens com.next.game;
 }

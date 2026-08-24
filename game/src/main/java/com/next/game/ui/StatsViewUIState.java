@@ -98,10 +98,10 @@ public class StatsViewUIState implements UIState {
     private final Inventory inventory;
 
     // Info panel stuff
-    private static final String OPT_EQUIP = "Equip";
-    private static final String OPT_USE =   "Use";
-    private static final String OPT_DROP =  "Drop";
-    private static final String OPT_BACK =  "Back";
+    private static final String OPT_EQUIP = "> Equip";
+    private static final String OPT_USE =   "> Use";
+    private static final String OPT_DROP =  "> Drop";
+    private static final String OPT_BACK =  "> Back";
     private String[] options;
     private int optCursor = 0;
 
@@ -118,7 +118,7 @@ public class StatsViewUIState implements UIState {
         itemInfoView = new ViewItemInfo();
         inventoryView = new ViewInventory(this.player);
         inventory = player.getInventory();
-        player.getInventory().forEach(x -> inventoryItems.add(x));
+        player.getInventory().forEach(inventoryItems::add);
     }
 
     @Override

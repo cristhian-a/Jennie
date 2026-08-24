@@ -2,8 +2,10 @@ package com.next.engine.graphics;
 
 import com.next.engine.animation.Costume;
 import com.next.engine.data.Buffered;
+import com.next.engine.data.Registry;
 import com.next.engine.physics.AABB;
 import com.next.engine.physics.CollisionBox;
+import com.next.engine.ui.Rect;
 
 import java.util.Arrays;
 
@@ -34,11 +36,21 @@ public final class RenderQueue implements Buffered {
     }
 
     public void submit(Layer layer, float x, float y, int spriteId) {
-        buckets[layer.ordinal()].sprites.add(x, y, spriteId);
+        final var metadata = Registry.sprites[spriteId];
+        final float w = metadata.srcWidth();
+        final float h = metadata.srcHeight();
+        buckets[layer.ordinal()].sprites.add(x, y, 0, w, h, spriteId);
     }
 
     public void draw(Layer layer, long sortKey, float x, float y, Costume costume) {
-        buckets[layer.ordinal()].sprites.add((int) x, (int) y, costume.texture());
+        final var metadata = Registry.sprites[costume.texture()];
+        final float w = metadata.srcWidth();
+        final float h = metadata.srcHeight();
+        buckets[layer.ordinal()].sprites.add(x, y, 0, w, h, costume.texture());
+    }
+
+    public void draw(Layer layer, float x, float y, float width, float height, int textureId) {
+        buckets[layer.ordinal()].sprites.add(x, y, 0, width, height, textureId);
     }
 
     public void submit(Layer layer, CollisionBox box, boolean hit) {
@@ -48,20 +60,36 @@ public final class RenderQueue implements Buffered {
         buckets[layer.ordinal()].rectangles.add(bounds.x, bounds.y, bounds.width, bounds.height, color);
     }
 
-    public void rectangle(Layer layer, float x, float y, float width, float height, int color) {
+    public void rect(Layer layer, float x, float y, float width, float height, int color) {
         buckets[layer.ordinal()].rectangles.add(x, y, width, height, color);
+    }
+
+    public void rect(Layer layer, Rect rect, int color) {
+        rect(layer, rect.x, rect.y, rect.width, rect.height, color);
     }
 
     public void roundStrokeRect(Layer layer, float x, float y, float width, float height, int thickness, int color, int arc) {
         buckets[layer.ordinal()].roundedStrokeRectTable.add(x, y, width, height, thickness, color, arc);
     }
 
+    public void roundStrokeRect(Layer layer, Rect rect, int thickness, int color, int arc) {
+        roundStrokeRect(layer, rect.x, rect.y, rect.width, rect.height, thickness, color, arc);
+    }
+
     public void fillRect(Layer layer, float x, float y, float width, float height, int color) {
         buckets[layer.ordinal()].filledRectangles.add(x, y, width, height, color);
     }
 
+    public void fillRect(Layer layer, Rect rect, int color) {
+        fillRect(layer, rect.x, rect.y, rect.width, rect.height, color);
+    }
+
     public void fillRoundRect(Layer layer, float x, float y, float width, float height, int color, int arc) {
         buckets[layer.ordinal()].filledRoundRects.add(x, y, width, height, color, arc);
+    }
+
+    public void fillRoundRect(Layer layer, Rect rect, int color, int arc) {
+        fillRoundRect(layer, rect.x, rect.y, rect.width, rect.height, color, arc);
     }
 
     public void submit(Layer layer, String message, String font, int color, float x, float y, RenderPosition pos, int frames) {
@@ -141,15 +169,25 @@ public final class RenderQueue implements Buffered {
     }
 
     public static final class SpriteTable extends AbstractRenderTable {
+        public float[] width, height;
         public int[] spriteId;
 
         public SpriteTable(int capacity) {
             super(capacity);
             spriteId = new int[capacity];
+            width = new float[capacity];
+            height = new float[capacity];
         }
 
-        public void add(float x, float y, int spriteId) {
-            int index = nextSlot(x, y, 0);
+//        public void add(float x, float y, int spriteId) {
+//            int index = nextSlot(x, y, 0);
+//            this.spriteId[index] = spriteId;
+//        }
+
+        public void add(float x, float y, float z, float width, float height, int spriteId) {
+            int index = nextSlot(x, y, z);
+            this.width[index] = width;
+            this.height[index] = height;
             this.spriteId[index] = spriteId;
         }
 

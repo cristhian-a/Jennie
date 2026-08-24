@@ -1,25 +1,15 @@
 package com.next.game;
 
-import com.next.engine.Director;
-import com.next.engine.data.Registry;
-import com.next.engine.data.AtlasImporter;
-import com.next.engine.debug.*;
-import com.next.engine.event.*;
-import com.next.engine.model.*;
-import com.next.engine.scene.*;
+import module engine.core;
 import com.next.game.event.DisplayStatsEvent;
 import com.next.game.event.FallDamageEvent;
 import com.next.game.event.PauseEvent;
 import com.next.game.event.PitFallEvent;
 import com.next.game.event.handlers.*;
 import com.next.game.gameflow.*;
-import com.next.engine.data.Mailbox;
-import com.next.engine.physics.Physics;
 import com.next.game.io.Loader;
 import com.next.game.model.*;
 import com.next.game.model.factory.*;
-import com.next.engine.system.Input;
-import com.next.engine.system.Settings;
 import com.next.game.ui.GameplayUIState;
 import com.next.game.ui.UISystem;
 import com.next.game.util.Inputs;

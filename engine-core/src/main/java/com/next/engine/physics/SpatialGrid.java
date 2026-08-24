@@ -53,7 +53,7 @@ public final class SpatialGrid {
      * @param motionDelta movement delta (i.e., the intended amount of motion to be applied)
      * @param physics {@link Physics} instance to be visited.
      */
-    protected void queryBroadPhase(Axis axis, Body agent, float motionDelta, Physics physics) {
+    void queryBroadPhase(Axis axis, Body agent, float motionDelta, Physics physics) {
         queryCounter++;
 
         AABB box    = agent.getCollisionBox().getBounds();

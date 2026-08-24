@@ -24,7 +24,7 @@ final class LightningRenderer {
 
     private VolatileImage lightMap;
     private Graphics2D lightGraphics;
-    private float ambient = 0.85f;
+    private float ambient = 0.65f;
 
     public LightningRenderer(VideoSettings settings) {
         this.settings = settings;
@@ -35,8 +35,8 @@ final class LightningRenderer {
                 .getDefaultConfiguration();
 
         lightMap = gc.createCompatibleVolatileImage(
-                settings.WIDTH / settings.SCALE + 1,
-                settings.HEIGHT / settings.SCALE + 1,
+                settings.WIDTH / settings.SCALE,
+                settings.HEIGHT / settings.SCALE,
                 Transparency.TRANSLUCENT
         );
 
@@ -134,7 +134,14 @@ final class LightningRenderer {
             g.setComposite(AlphaComposite.SrcOver);
 
             // A fix is needed to avoid the light map being pixels off in the bottom and right corners.
-            g.drawImage(lightMap, (int) (camera.getX()), (int) (camera.getY()), null);
+            g.drawImage(
+                    lightMap,
+                    (int) (camera.getX()) - 1,
+                    (int) (camera.getY()) - 1,
+                    lightMap.getWidth() + 2,
+                    lightMap.getHeight() + 2,
+                    null
+            );
         }
     }
 
@@ -150,8 +157,8 @@ final class LightningRenderer {
         /* plus 1 is here to fix a problem with the camera letting a thin slice of the rendered world without the
         *  light map covering it */
         lightMap = gc.createCompatibleVolatileImage(
-                settings.WIDTH / settings.SCALE + 1,
-                settings.HEIGHT / settings.SCALE + 1,
+                settings.WIDTH / settings.SCALE,
+                settings.HEIGHT / settings.SCALE,
                 Transparency.TRANSLUCENT
         );
 

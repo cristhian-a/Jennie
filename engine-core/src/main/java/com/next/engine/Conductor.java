@@ -15,7 +15,7 @@ public final class Conductor implements Runnable {
     private final GamePanel panel;
     private final InputBindings inputBindings;
 
-    private Thread mainThread;
+    private final Thread mainThread;
     private boolean running;
 
     public Conductor(Director director, GamePanel panel, Input input, InputBindings inputBindings) {
@@ -23,11 +23,12 @@ public final class Conductor implements Runnable {
         this.panel = panel;
         this.input = input;
         this.inputBindings = inputBindings;
+
+        this.mainThread = new Thread(this, "Game Conductor Thread");
     }
 
     public void start() {
         running = true;
-        mainThread = new Thread(this, "Game Conductor Thread");
 
         director.init();
         panel.openWindow();
