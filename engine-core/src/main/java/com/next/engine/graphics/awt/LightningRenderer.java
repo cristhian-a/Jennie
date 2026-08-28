@@ -25,7 +25,7 @@ final class LightningRenderer {
 
     private VolatileImage lightMap;
     private Graphics2D lightGraphics;
-    private float ambient = 0.85f;
+    private float ambient = 0.75f;
 
     public LightningRenderer(VideoSettings settings) {
         this.settings = settings;
@@ -110,20 +110,20 @@ final class LightningRenderer {
                     null
             );
 
-            final int argb = 0xFF00FFFF;
-            final var coloredTexture = RenderCache.INSTANCE.getColoredLight(
-                    argb,
-                    () -> makeColoredLight(light, new Color(argb))
-            );
-
-            lightGraphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-            lightGraphics.drawImage(
-                    coloredTexture,
-                    camera.worldToScreenX(drawX),
-                    camera.worldToScreenY(drawY),
-                    (int) finalRadius, (int) finalRadius,
-                    null
-            );
+//            final int argb = 0xFF00FFFF;
+//            final var coloredTexture = RenderCache.INSTANCE.getColoredLight(
+//                    argb,
+//                    () -> makeColoredLight(light, new Color(argb))
+//            );
+//
+//            lightGraphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+//            lightGraphics.drawImage(
+//                    coloredTexture,
+//                    camera.worldToScreenX(drawX),
+//                    camera.worldToScreenY(drawY),
+//                    (int) finalRadius, (int) finalRadius,
+//                    null
+//            );
         }
     }
 

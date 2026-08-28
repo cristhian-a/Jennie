@@ -15,7 +15,7 @@ import javax.tools.Diagnostic;
 import java.lang.reflect.Method;
 import java.util.Set;
 
-@SupportedSourceVersion(SourceVersion.RELEASE_25)
+@SupportedSourceVersion(SourceVersion.RELEASE_26)
 @SupportedAnnotationTypes("com.next.engine.annotations.internal.Experimental")
 public class ExperimentalProcessor extends AbstractProcessor {
 
