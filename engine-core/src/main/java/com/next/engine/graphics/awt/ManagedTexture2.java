@@ -14,7 +14,7 @@ import java.awt.image.VolatileImage;
  * @apiNote This class is not thread safe, and its drawing methods should only be called from the main thread by
  * {@link Renderer}.
  */
-public final class ManagedTexture2 {
+public final class ManagedTexture2 implements AutoCloseable {
     private final BufferedImage ramSource;
     private VolatileImage vRamHandle;
 
@@ -92,6 +92,8 @@ public final class ManagedTexture2 {
     }
 
     private void recreateVRAM(GraphicsConfiguration config) {
+        if (vRamHandle != null) vRamHandle.flush();
+
         vRamHandle = config.createCompatibleVolatileImage(
                 ramSource.getWidth(),
                 ramSource.getHeight(),
@@ -102,8 +104,23 @@ public final class ManagedTexture2 {
 
     private void copyToVRAM() {
         Graphics2D g = vRamHandle.createGraphics();
-        g.setComposite(AlphaComposite.Src);
-        g.drawImage(ramSource, 0, 0, null);
-        g.dispose();
+
+        try {
+            g.setComposite(AlphaComposite.Clear);
+            g.fillRect(0, 0, ramSource.getWidth(), ramSource.getHeight());
+
+            g.setComposite(AlphaComposite.Src);
+            g.drawImage(ramSource, 0, 0, null);
+        } finally {
+            g.dispose();
+        }
+    }
+
+    @Override
+    public void close() throws Exception {
+        if (vRamHandle != null) {
+            vRamHandle.flush();
+            vRamHandle = null;
+        }
     }
 }
