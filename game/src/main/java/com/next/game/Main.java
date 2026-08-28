@@ -7,6 +7,9 @@ import com.next.game.util.Inputs;
 final class Main {
 
     void main() {
+        System.setProperty("sun.java2d.uiScale", "1.0");
+        System.setProperty("sun.java2d.d3d", "true");
+
         // IO operations
         Loader.Founts.register();
         Settings settings = Loader.Settings.load();

@@ -26,6 +26,12 @@ public final class AtlasImporter {
             Frame frame = frames.get(i);
             String filename = frame.getFilename();
             Rectangle coordinates = frame.getFrame();
+
+            if (coordinates.x + coordinates.width > sheet.getWidth() ||
+                    coordinates.y + coordinates.height > sheet.getHeight()) {
+                throw new IllegalArgumentException("Frame " + filename + " is out of bounds");
+            }
+
             Point pivot = frame.getPivot();
             float pivotX = 0, pivotY = 0;
             if (pivot != null) {
