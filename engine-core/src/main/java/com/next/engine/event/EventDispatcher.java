@@ -27,6 +27,12 @@ public class EventDispatcher {
         }
     }
 
+    /**
+     * Dispatches all events in the mailbox for execution.
+     * <p/>
+     * While the mailbox is being dispatched, any modification to it will throw an exception.
+     * @param mailbox the mailbox to dispatch
+     */
     public void dispatch(Mailbox mailbox) {
         for (var supplier : mailbox.eventSuppliers) {
             GameEvent event = supplier.get();
