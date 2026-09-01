@@ -13,6 +13,7 @@ import com.next.engine.physics.*;
 import com.next.engine.scene.Direction;
 import com.next.engine.debug.DebugChannel;
 import com.next.engine.debug.Debugger;
+import com.next.game.event.GameOverEvent;
 import com.next.game.visual.AnimationState;
 import com.next.game.event.HitEvent;
 import com.next.game.model.factory.HitboxFactory;
@@ -92,6 +93,11 @@ public final class Player extends Actor implements Combatant {
 
     @Override
     public void update(double delta) {
+
+        if (health <= 0) {
+            context.mailbox().post(GameOverEvent::new);
+            return;
+        }
 
         if (invincible) invincibilityFrames--;
         invincible = invincibilityFrames > 0;

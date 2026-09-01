@@ -1,11 +1,8 @@
 package com.next.game.gameflow;
 
 import com.next.game.Game;
-import com.next.game.event.DisplayStatsEvent;
-import com.next.game.event.StartGameEvent;
-import com.next.game.event.PauseEvent;
+import com.next.game.event.*;
 import com.next.engine.event.EventDispatcher;
-import com.next.game.event.FinishGameEvent;
 
 public class GameFlowHandler {
 
@@ -17,6 +14,8 @@ public class GameFlowHandler {
         dispatcher.register(DisplayStatsEvent.class, this::onFire);
         dispatcher.register(FinishGameEvent.class, this::onFire);
         dispatcher.register(StartGameEvent.class, this::onFire);
+        dispatcher.register(GoToTitleEvent.class, this::onFire);
+        dispatcher.register(GameOverEvent.class, this::onFire);
         dispatcher.register(PauseEvent.class, this::onFire);
     }
 
@@ -45,6 +44,14 @@ public class GameFlowHandler {
         } else if (game.isDisplayingStats()){
             game.setMode(new RunningMode());
         }
+    }
+
+    public void onFire(GameOverEvent event) {
+        game.setMode(new GameOverMode());
+    }
+
+    public void onFire(GoToTitleEvent event) {
+        game.setMode(new TitleMode());
     }
 
 }
